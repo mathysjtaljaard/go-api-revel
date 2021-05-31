@@ -39,8 +39,9 @@ func init() {
 	// Register startup functions with OnAppStart
 	// revel.DevMode and revel.RunMode only work inside of OnAppStart. See Example Startup Script
 	// ( order dependent )
+	revel.OnAppStart(InitDB)
 	revel.OnAppStart(ExampleStartupScript)
-	// revel.OnAppStart(InitDB)
+	
 	// revel.OnAppStart(FillCache)
 }
 
@@ -59,6 +60,13 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 func ExampleStartupScript() {
 	// revel.DevMod and revel.RunMode work here
 	// Use this script to check for dev mode and set dev/prod startup scripts here!
+	if revel.DevMode {
+		DB = db.GetDbConnector()
+		revel.AppLog.Debugf("Connection for DB %v", DB)
+	}
+}
+
+func InitDB() {
 	if revel.DevMode {
 		DB = db.GetDbConnector()
 		revel.AppLog.Debugf("Connection for DB %v", DB)
