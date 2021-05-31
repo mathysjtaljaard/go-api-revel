@@ -7,6 +7,9 @@ require (
 	github.com/garyburd/redigo v1.6.2 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
+	github.com/revel/cmd v1.0.3 // indirect
 	github.com/revel/modules v1.0.0
 	github.com/revel/revel v1.0.0
+	gorm.io/driver/sqlite v1.1.4
+	gorm.io/gorm v1.21.10
 )

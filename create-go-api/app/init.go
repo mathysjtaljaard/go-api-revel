@@ -1,9 +1,11 @@
 package app
 
 import (
-	"github.com/revel/revel"
-	_ "github.com/revel/modules"
+	"create-go-api/app/services/db"
 
+	_ "github.com/revel/modules"
+	"github.com/revel/revel"
+	"gorm.io/gorm"
 )
 
 var (
@@ -13,6 +15,8 @@ var (
 	// BuildTime revel app build-time (ldflags)
 	BuildTime string
 )
+
+var DB *gorm.DB
 
 func init() {
 	// Filters is the default set of global filters.
@@ -35,7 +39,7 @@ func init() {
 	// Register startup functions with OnAppStart
 	// revel.DevMode and revel.RunMode only work inside of OnAppStart. See Example Startup Script
 	// ( order dependent )
-	// revel.OnAppStart(ExampleStartupScript)
+	revel.OnAppStart(ExampleStartupScript)
 	// revel.OnAppStart(InitDB)
 	// revel.OnAppStart(FillCache)
 }
@@ -52,10 +56,11 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 	fc[0](c, fc[1:]) // Execute the next filter stage.
 }
 
-//func ExampleStartupScript() {
-//	// revel.DevMod and revel.RunMode work here
-//	// Use this script to check for dev mode and set dev/prod startup scripts here!
-//	if revel.DevMode == true {
-//		// Dev mode
-//	}
-//}
+func ExampleStartupScript() {
+	// revel.DevMod and revel.RunMode work here
+	// Use this script to check for dev mode and set dev/prod startup scripts here!
+	if revel.DevMode {
+		DB = db.GetDbConnector()
+		revel.AppLog.Debugf("Connection for DB %v", DB)
+	}
+}
