@@ -41,7 +41,7 @@ func init() {
 	// ( order dependent )
 	revel.OnAppStart(InitDB)
 	revel.OnAppStart(AutoMigrateSchemas)
-
+	revel.OnAppStart(LocalDevSetup)
 	// revel.OnAppStart(FillCache)
 }
 
@@ -65,4 +65,10 @@ func InitDB() {
 
 func AutoMigrateSchemas() {
 	db.CustomAutomigrator(DB_Connector)
+}
+
+func LocalDevSetup() {
+	if revel.DevMode {
+		db.CreateUsers()
+	}
 }

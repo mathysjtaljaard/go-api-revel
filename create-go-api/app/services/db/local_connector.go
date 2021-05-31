@@ -35,7 +35,8 @@ func CreateUsers() {
 
 	revel.AppLog.Debugf("Connection for DB %v for creating users", GetDbConnector())
 	//Clear Table
-	GetDbConnector().Where("ID > 0").Delete(models.User{})
+	GetDbConnector().Where("id > ?", 0).Delete(&models.User{})
+
 	users := []models.User{
 		{FirstName: "Randy", LastName: "Wilson"},
 		{FirstName: "Zhany", LastName: "Drag"},
@@ -45,4 +46,5 @@ func CreateUsers() {
 	}
 	revel.AppLog.Debugf("Users to insert %v", users)
 	GetDbConnector().CreateInBatches(&users, len(users))
+
 }
