@@ -1,15 +1,13 @@
 package controllers
 
-import "github.com/revel/revel"
+import (
+	"create-go-api/app/repositories"
+
+	"github.com/revel/revel"
+)
 
 type UserController struct {
 	*revel.Controller
-}
-
-type user struct {
-	ID        string
-	FirstName string
-	LastName  string
 }
 
 type JsonResponse struct {
@@ -20,11 +18,7 @@ type JsonResponse struct {
 
 func (c UserController) GetUsers() revel.Result {
 
-	users := []user{
-		{ID: "3333", FirstName: "bob", LastName: "builder"},
-		{ID: "1111", FirstName: "carly", LastName: "wanda"},
-		{ID: "2222", FirstName: "jenny", LastName: "clarkson"},
-	}
+	users := repositories.GetAllUsers()
 
 	response := JsonResponse{Success: true, Data: users}
 
