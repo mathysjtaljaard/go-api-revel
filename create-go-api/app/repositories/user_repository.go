@@ -15,12 +15,8 @@ func GetAllUsers() []models.User {
 	return users
 }
 
-func CreateUser(firstName, lastName string) models.User {
-	user := models.User{
-		FirstName: firstName,
-		LastName:  lastName,
-	}
+func CreateUser(user *models.User) *models.User {
 
-	app.DB_Connector.Create(user)
+	app.DB_Connector.Create(&user)
 	return user
 }

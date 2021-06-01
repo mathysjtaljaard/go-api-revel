@@ -11,7 +11,7 @@ GET     /                                           App.Index
 GET     /v1/index                                   V1.Index
 GET     /v1/custom-index                            V1.CustomIndex
 GET     /users                                      UserController.GetUsers
-
+POST    /users                                      UserController.CreateUser
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
